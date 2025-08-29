@@ -1,6 +1,6 @@
-### Porject: The structural change in UK generation mix
+### Porject: Structural change in UK power generation mix (k-means clustering analysis)
 
-This project uses KMeans clustering analysis to analyse UK generation mix data and search for the structural change in UK generation mix.
+This project uses k-means clustering analysis to analyse UK generation mix data and search for the structural change in UK generation mix.
 The data is downloaded from the [National Energy System Operator (NESO)](https://www.neso.energy/data-portal)
 
 This repository contains three scripts:
