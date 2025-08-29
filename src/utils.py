@@ -78,6 +78,7 @@ def detailed_chart(data, cols, labels, timeformat='%Y-%m-%d'):
         for j in range(1, len(no_clusters)):
             axs[i].vlines(x=min(data.index[labels == no_clusters[j]]), ymin=0, ymax=data[col].max(), color='r', linestyle='-')
             axs[i].annotate(min(data.index[labels == no_clusters[j]]).strftime(timeformat), xy=(min(data.index[labels == no_clusters[j]]), data[col].max()), color='r')
+            axs[i].set_ylabel('GWh')
     return fig, axs
 
 def focus_chart(data, labels, col1=['COAL', 'GAS'], col2=['WIND','SOLAR', 'HYDRO'], col1_name='fossil',col2_name='Renewable'):
@@ -94,6 +95,6 @@ def focus_chart(data, labels, col1=['COAL', 'GAS'], col2=['WIND','SOLAR', 'HYDRO
         y = data[col2]
         
     axs.scatter(x, y, c=labels, cmap='cividis')
-    axs.set_xlabel(col1_name)
-    axs.set_ylabel(col2_name)
+    axs.set_xlabel(col1_name + '(GWh)')
+    axs.set_ylabel(col2_name + '(GWh)')
     return fig, axs
