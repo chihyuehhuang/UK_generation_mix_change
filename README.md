@@ -1,14 +1,48 @@
-### Porject: Structural change in UK power generation mix (k-means clustering analysis)
+# Porject: Structural change in UK power generation mix (k-means clustering analysis)
 
+## Overview
 This project uses k-means clustering analysis to analyse UK generation mix data and search for the structural change in UK generation mix.
 The data is downloaded from the [National Energy System Operator (NESO)](https://www.neso.energy/data-portal)
 
 This repository contains three scripts:
 
-1. The [first notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/01_data_import%20(first).ipynb) downloads the data via NESO API and export it to PostgreSQL database.
-2. The [second notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/02_data_update.ipynb) updates the database.
-However, it is not necessary to frequently update the data, as the main purpose is to find the long-term structural change.
-3. The [third notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb) performs the clustering analysis.
-It includes data preprocessing, analysis and findings.
+1. [Data import](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/01_data_import%20(first).ipynb): download the data via NESO API and exports it to the PostgreSQL database.
+2. [Data update](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/02_data_update.ipynb): update the database.
+However, it is not necessary to update the data frequently, as the main purpose is to identify long-term structural change.
+3. [Clustering analysis](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb): perform the clustering analysis.
 
+:exclamation: Please run [Data import](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/01_data_import%20(first).ipynb) to create DB before running [Clustering analysis](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb).
+
+## Implementation
+### Option 1: Run in the container
+Step 1: Build & start containers for both postgreSQL & Jupyter Notebook <br>
+```docker-compose up -d```
+
+Step 2: Get the URL <br>
+```docker logs energy_jupyter```
+
+Step3: Copy the URL to the browser & run the Jupyter Notebook <br>
+
+### Option 2: Run on local machine
+Step 1: Set up PostgreSQL on your local machine and make sure the host, username, port, and password match the settings.
+For example, below are the current params in the Jupyter Notebooks.
+```
+host = os.getenv("DB_HOST", "localhost")
+database = os.getenv("DB_NAME", "energy_forecast")
+username = os.getenv("DB_USER", "postgres")
+password = os.getenv("DB_PASS", "1234")
+port = os.getenv("DB_PORT", "5432")
+```
+The PostgreSQL setting should be below on your local machine <br>
+>  host = "localhost",
+> 
+>  database = "energy_forecast",
+> 
+>  username = "postgres",
+> 
+>  password = "1234",
+> 
+>  port = "5432".
+
+Step2: Run the Jupyter Notebook.
 If you have any question, please contact me by 📫 [hello@chihyuehhuang.com](mailto:hello@chihyuehhuang.com).
