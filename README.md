@@ -14,12 +14,25 @@ It includes data preprocessing, analysis and findings.
 
 ## Implementation
 ### Option 1: Run in the container
-Step 1:
+Step 1: Build & start container
 Under CMD/PowerShell/Terminal
-`docker-compose up -d`
-`docker logs energy_jupyter`
+```docker-compose up -d```
+
+Step 2: Get the URL
+```docker logs energy_jupyter```
 Copy the URL to the browser & run the Jupyter Notebook
 
 ### Option 2: Run on local machine
-
+Step 1: Setup the PostgreSQL on your local machine
+Make sure the host, username, port, password are identical with the setting.
+They are the alternative value in
+```
+host = os.getenv("DB_HOST", "localhost")
+database = os.getenv("DB_NAME", "energy_forecast")
+username = os.getenv("DB_USER", "postgres")
+password = os.getenv("DB_PASS", "1234")
+port = os.getenv("DB_PORT", "5432")
+```
+For example, set the host to "localhost".
+Step2: Run the Jupyter Notebook.
 If you have any question, please contact me by 📫 [hello@chihyuehhuang.com](mailto:hello@chihyuehhuang.com).
