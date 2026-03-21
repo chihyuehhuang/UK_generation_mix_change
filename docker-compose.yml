@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:15
+    container_name: energy_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: energy_forecast
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  jupyter:
+    build: .
+    container_name: energy_jupyter
+    depends_on:
+      - db
+    ports:
+      - "8888:8888"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=energy_forecast
+      - DB_USER=postgres
+      - DB_PASS=password123
+    volumes:
+      - .:/app  # This syncs your local files with the container
+
+volumes:
+  postgres_data:

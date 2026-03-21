@@ -5,9 +5,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+# - functions: clustering analysis
 
+# stability(): calculate statbility scores by boostraping
 rng = np.random.default_rng(0)
-def stability(X, n_clusters, lab_full, B=200, random_state=1, **kwargs):
+def stability(X:pd.DataFrame, n_clusters: int, lab_full: pd.DataFrame, B:int=200, random_state:int=1, **kwargs) -> float :
     # Convert DataFrame to NumPy array
     if isinstance(X, pd.DataFrame):
         X_array = X.values
@@ -24,7 +26,8 @@ def stability(X, n_clusters, lab_full, B=200, random_state=1, **kwargs):
         scores.append(adjusted_rand_score(lab_full[idx], lab))
     return np.mean(scores)
 
-def cluster_analysis(X, n_clusters, random_state=1, verbose=True, stab=False, silhouette=False, **kwargs):
+# clustering analysis(): perform k-mean clustering & report Davies Bouldin index, Sulhouette scores & stability scores
+def cluster_analysis(X:pd.DataFrame, n_clusters, random_state=1, verbose=True, stab=False, silhouette=False, **kwargs):
     kmeans = KMeans(n_clusters=n_clusters,random_state=random_state, **kwargs).fit(X)
     
     # output information
