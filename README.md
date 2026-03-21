@@ -11,7 +11,7 @@ This repository contains three scripts:
 However, it is not necessary to update the data frequently, as the main purpose is to identify long-term structural change.
 3. [Clustering analysis](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb): perform the clustering analysis.
 
-:exclamation: Please run [first notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/01_data_import%20(first).ipynb) to create DB before running [third notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb).
+:exclamation: Please run [Data import](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/01_data_import%20(first).ipynb) to create DB before running [Clustering analysis](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb).
 
 ## Implementation
 ### Option 1: Run in the container
