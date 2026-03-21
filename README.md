@@ -25,7 +25,11 @@ Step3: Copy the URL to the browser & run the Jupyter Notebook <br>
 ### Option 2: Run on local machine
 Step 1: Set up PostgreSQL on your local machine and make sure the host, username, port, and password match the settings.
 For example, the params on my local machine are <br>
-<host = "localhost", database = "energy_forecast", username = "postgres", password = "1234", port = "5432">.
+>  host = "localhost",
+>  database = "energy_forecast",
+>  username = "postgres",
+>  password = "1234",
+>  port = "5432". 
 I have below in my Jupyter Notebook.
 ```
 host = os.getenv("DB_HOST", "localhost")
