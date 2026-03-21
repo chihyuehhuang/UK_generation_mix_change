@@ -11,4 +11,9 @@ However, it is not necessary to frequently update the data, as the main purpose 
 3. The [third notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb) performs the clustering analysis.
 It includes data preprocessing, analysis and findings.
 
+## Implementation
+# Option 1: Run in the container
+
+# Option 2: Run on local machine
+
 If you have any question, please contact me by 📫 [hello@chihyuehhuang.com](mailto:hello@chihyuehhuang.com).
