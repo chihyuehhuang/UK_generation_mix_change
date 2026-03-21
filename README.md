@@ -14,13 +14,13 @@ It includes data preprocessing, analysis and findings.
 
 ## Implementation
 ### Option 1: Run in the container
-Step 1: Build & start container
-Under CMD/PowerShell/Terminal
+Step 1: Build & start containers for both postgreSQL & Jupyter Notebook <br>
 ```docker-compose up -d```
 
-Step 2: Get the URL
+Step 2: Get the URL <br>
 ```docker logs energy_jupyter```
-Copy the URL to the browser & run the Jupyter Notebook
+
+Step3: Copy the URL to the browser & run the Jupyter Notebook <br>
 
 ### Option 2: Run on local machine
 Step 1: Setup the PostgreSQL on your local machine
