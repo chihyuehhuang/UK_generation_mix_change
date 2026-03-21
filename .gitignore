@@ -1,2 +1,14 @@
-
+# Jupyter Notebook checkpoints
 notebooks/.ipynb_checkpoints/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Environments
+.env
+.venv/
+env/
+
+# Docker logs
+*.log
