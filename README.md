@@ -33,7 +33,8 @@ For example, the params on my local machine are <br>
 > 
 >  password = "1234",
 > 
->  port = "5432". 
+>  port = "5432".
+
 I have below in my Jupyter Notebook.
 ```
 host = os.getenv("DB_HOST", "localhost")
