@@ -6,11 +6,12 @@ The data is downloaded from the [National Energy System Operator (NESO)](https:/
 
 This repository contains three scripts:
 
-1. The [first notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/01_data_import%20(first).ipynb) downloads the data via NESO API and export it to PostgreSQL database.
-2. The [second notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/02_data_update.ipynb) updates the database.
-However, it is not necessary to frequently update the data, as the main purpose is to find the long-term structural change.
-3. The [third notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb) performs the clustering analysis.
-It includes data preprocessing, analysis and findings.
+1. Data import: The [first notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/01_data_import%20(first).ipynb) downloads the data via NESO API and exports it to the PostgreSQL database.
+2. Data update: The [second notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/02_data_update.ipynb) updates the database.
+However, it is not necessary to update the data frequently, as the main purpose is to identify long-term structural change.
+3. Data analysis: The [third notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb) performs the clustering analysis.
+
+[!] Please run [first notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/01_data_import%20(first).ipynb) to create DB before running [third notebook](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb).
 
 ## Implementation
 ### Option 1: Run in the container
@@ -24,7 +25,15 @@ Step3: Copy the URL to the browser & run the Jupyter Notebook <br>
 
 ### Option 2: Run on local machine
 Step 1: Set up PostgreSQL on your local machine and make sure the host, username, port, and password match the settings.
-For example, the params on my local machine are <br>
+For example, below are the current params in the Jupyter Notebooks.
+```
+host = os.getenv("DB_HOST", "localhost")
+database = os.getenv("DB_NAME", "energy_forecast")
+username = os.getenv("DB_USER", "postgres")
+password = os.getenv("DB_PASS", "1234")
+port = os.getenv("DB_PORT", "5432")
+```
+The PostgreSQL setting should be below on your local machine <br>
 >  host = "localhost",
 > 
 >  database = "energy_forecast",
@@ -35,14 +44,5 @@ For example, the params on my local machine are <br>
 > 
 >  port = "5432".
 
-I have below in my Jupyter Notebook.
-```
-host = os.getenv("DB_HOST", "localhost")
-database = os.getenv("DB_NAME", "energy_forecast")
-username = os.getenv("DB_USER", "postgres")
-password = os.getenv("DB_PASS", "1234")
-port = os.getenv("DB_PORT", "5432")
-```
-For example, set the host to "localhost".
 Step2: Run the Jupyter Notebook.
 If you have any question, please contact me by 📫 [hello@chihyuehhuang.com](mailto:hello@chihyuehhuang.com).
