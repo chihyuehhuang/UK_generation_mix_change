@@ -3,6 +3,7 @@ numpy
 scikit-learn
 matplotlib
 sqlalchemy
-jupyterlab
 seaborn
 psycopg2-binary
+plotly
+streamlit

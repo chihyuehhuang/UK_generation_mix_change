@@ -12,3 +12,6 @@ env/
 
 # Docker logs
 *.log
+
+#streamlit credential
+.streamlit/secrets.toml

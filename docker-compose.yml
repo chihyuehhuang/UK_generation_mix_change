@@ -11,8 +11,33 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  jupyter:
-    build: .
+  frontend:
+    build: 
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    volumes:
+      - ./frontend:/app
+      - ./src:/app/src
+      - ./.streamlit:/app/.streamlit
+    container_name: energy_streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=energy_forecast
+      - DB_USER=postgres
+      - DB_PASS=password123
+
+  analytics:
+    build:
+      context: .                          # Look at the whole root folder
+      dockerfile: ./analytics/Dockerfile  # But read these specific instructions
+    volumes:
+      - ./analytics:/app
+      - ./src:/app/src
+      - ./.streamlit:/app/.streamlit
+      - ./syles:/app/styles
+
     container_name: energy_jupyter
     depends_on:
       - db
@@ -23,8 +48,6 @@ services:
       - DB_NAME=energy_forecast
       - DB_USER=postgres
       - DB_PASS=password123
-    volumes:
-      - .:/app  # This syncs your local files with the container
 
 volumes:
   postgres_data:

@@ -1,0 +1,14 @@
+[theme]
+backgroundColor = "#000000"
+secondaryBackgroundColor="#ffffff"
+font = "Playfair Display:https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+headingFont = "Playfair Display:https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+textColor = "#ffffff"
+
+[theme.sidebar]
+primaryColor="#000000"
+backgroundColor = "#474747"
+secondaryBackgroundColor="#ffffff"
+textColor = "#ffffff"
+font = "Playfair Display:https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+headingFont = "Playfair Display:https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
