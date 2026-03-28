@@ -1,5 +1,13 @@
 import sys
 import os
+# DEBUG: Print environment and paths
+print("--- DEBUG INFO ---")
+print(f"Current Working Directory: {os.getcwd()}")
+print(f"PYTHONPATH Env Var: {os.environ.get('PYTHONPATH', 'NOT SET')}")
+print("System Path (sys.path):")
+for path in sys.path:
+    print(f"  - {path}")
+print("------------------")
 from src.frontend import *
 from src.models import * 
 from src.ingest import get_engine
