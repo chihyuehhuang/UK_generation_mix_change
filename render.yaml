@@ -34,13 +34,15 @@ services:
       - key: DB_PORT
         value: "5432" # Internal Docker/Render port
 
-  # Streamlit App
-  - type: web
-    name: energy_dashboard
+  - type: job
+    name: data_ingestor
     env: python
-    buildCommand: pip install -r frontend/requirements.txt
-    startCommand: streamlit run frontend/app.py
+    schedule: "@manual" # This means it only runs when you click a button
+    buildCommand: pip install -r deploy/requirements.txt
+    startCommand: python src/ingest.py
     envVars:
+      - key: PYTHONPATH
+        value: "."
       - key: DB_HOST
         fromDatabase:
           name: energy_db
