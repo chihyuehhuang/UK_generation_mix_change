@@ -2,7 +2,6 @@
 databases:
   - name: energy_db
     databaseName: energy_forecast
-    user: postgres
     plan: free 
 
 # 2. Define the Services (Worker and Web)
