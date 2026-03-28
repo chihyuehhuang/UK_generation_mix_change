@@ -10,8 +10,8 @@ services:
   - type: worker
     name: data_ingestor
     env: python
-    buildCommand: pip install -r frontend/requirements.txt
-    startCommand: python frontend/app.py
+    buildCommand: pip install -r deploy/requirements.txt
+    startCommand: python deploy/app.py
     envVars:
       - key: DB_HOST
         fromDatabase:

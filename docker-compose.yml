@@ -11,12 +11,12 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  frontend:
+  deploy:
     build: 
       context: .
-      dockerfile: ./frontend/Dockerfile
+      dockerfile: ./deploy/Dockerfile
     volumes:
-      - ./frontend:/app
+      - ./deploy:/app
       - ./src:/app/src
       - ./.streamlit:/app/.streamlit
     container_name: energy_streamlit
