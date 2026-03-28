@@ -10,11 +10,11 @@ services:
   - type: worker
     name: data_ingestor
     env: python
-    buildCommand: |
-      pip install -r deploy/requirements.txt
-      cp -r src deploy/
+    buildCommand: pip install -r deploy/requirements.txt
     startCommand: python deploy/app.py
     envVars:
+      - key: PYTHONPATH
+        value: "."  # <--- THIS IS THE MAGIC LINE
       - key: DB_HOST
         fromDatabase:
           name: energy_db
