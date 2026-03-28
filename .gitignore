@@ -13,5 +13,8 @@ env/
 # Docker logs
 *.log
 
-#streamlit credential
+#streamlit credential (for local)
 .streamlit/secrets.toml
+
+#db credential (for docker)
+.env
