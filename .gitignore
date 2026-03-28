@@ -1,5 +1,5 @@
 # Jupyter Notebook checkpoints
-notebooks/.ipynb_checkpoints/
+analytics/.ipynb_checkpoints/
 
 # Python bytecode
 __pycache__/

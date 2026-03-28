@@ -2,6 +2,7 @@ import sys
 import os
 from src.frontend import *
 from src.models import * 
+from src.ingest import get_engine
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -16,17 +17,6 @@ st.set_page_config(page_title="UK Generation Mix Clustering", layout="wide")
 ## --- Data Loading ---
 # 1. Secure Database Connection
 @st.cache_resource # Use cache_resource for database engines
-def get_engine():
-    # Access secrets from .streamlit/secrets.toml
-    # db = st.secrets["postgres"]
-    host = os.getenv("DB_HOST", "localhost")
-    database = os.getenv("DB_NAME", "energy_forecast")
-    username = os.getenv("DB_USER", "postgres")
-    password = os.getenv("DB_PASS", "1234")
-    port = os.getenv("DB_PORT", "5432")
-
-    url = f"postgresql+psycopg2://{username}:{password}@{host}:{port}/{database}"
-    return create_engine(url)
 
 @st.cache_data(ttl=3600) # Cache data for 1 hour to prevent constant DB hitting
 def load_data_from_db():
