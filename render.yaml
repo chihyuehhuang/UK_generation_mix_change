@@ -1,12 +1,39 @@
-services:
-  # 1. The Managed PostgreSQL Database
-  - type: database
-    name: energy_db
+# 1. Define the Database in its own section
+databases:
+  - name: energy_db
     databaseName: energy_forecast
     user: postgres
-    plan: free # Use the free tier for testing
+    plan: free 
 
-  # 2. The Streamlit App
+# 2. Define the Services (Worker and Web)
+services:
+  # Ingest Service
+  - type: worker
+    name: data_ingestor
+    env: python
+    buildCommand: pip install -r frontend/requirements.txt
+    startCommand: python src/ingest.py
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: energy_db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: energy_db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: energy_db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: energy_db
+          property: password
+      - key: DB_PORT
+        value: "5432" # Internal Docker/Render port
+
+  # Streamlit App
   - type: web
     name: energy_dashboard
     env: python
@@ -29,3 +56,5 @@ services:
         fromDatabase:
           name: energy_db
           property: password
+      - key: DB_PORT
+        value: "5432"
