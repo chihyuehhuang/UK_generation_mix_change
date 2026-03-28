@@ -44,7 +44,7 @@ def get_engine():
             username = db.get("username")
             password = db.get("password")
             port = db.get("port")
-    print([host, database, username, password, port])
+    # print([host, database, username, password, port]) # This for debug
     # Create connection engine
     engine = create_engine(f"postgresql+psycopg2://{username}:{password}@{host}:{port}/{database}")
     return engine
