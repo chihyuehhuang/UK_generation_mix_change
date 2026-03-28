@@ -10,7 +10,9 @@ services:
   - type: worker
     name: data_ingestor
     env: python
-    buildCommand: pip install -r deploy/requirements.txt
+    buildCommand: |
+      pip install -r deploy/requirements.txt
+      cp -r src deploy/
     startCommand: python deploy/app.py
     envVars:
       - key: DB_HOST
