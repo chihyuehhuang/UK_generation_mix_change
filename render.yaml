@@ -11,7 +11,7 @@ services:
     name: data_ingestor
     env: python
     buildCommand: pip install -r frontend/requirements.txt
-    startCommand: python src/ingest.py
+    startCommand: python frontend/app.py
     envVars:
       - key: DB_HOST
         fromDatabase:
