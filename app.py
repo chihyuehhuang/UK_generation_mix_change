@@ -105,7 +105,7 @@ try:
             X = X_deseasoned
        
         # run KMean clustering with the selected max n_clusters
-        @st.cache_data(show_spinner="Running K-Means Clustering Analysis... Please wait.")
+        @st.cache_data(show_spinner=":gear: Running K-Means Clustering Analysis... Please wait.")
         def clustering_analysis_standard(X, n_clusters):
             kmeans_model, labels, db_scores = [], [], []
             for n_cluster in range(2, n_clusters+1):
@@ -115,11 +115,11 @@ try:
                 db_scores.append(kmeans[2])
                  
             optimal_n_clusters = db_scores.index(min(db_scores)) + 2
-            st.write(f'Optimal number of clusters: {optimal_n_clusters} (with Davies-Bouldin score: {db_scores[optimal_n_clusters - 2]})')
+            st.write(f':white_check_mark: Optimal number of clusters: {optimal_n_clusters} (with Davies-Bouldin score: {db_scores[optimal_n_clusters - 2]})')
             optimal_label = labels[optimal_n_clusters - 2]
             return optimal_label
         
-        @st.cache_data(show_spinner="Due to the smaller sample size (<30), Boostrap is employed to calculate the stability. It may take a while.")
+        @st.cache_data(show_spinner=":warning: Due to the smaller sample size (<30), Boostrap is employed to calculate the stability. It may take a while.")
         def clustering_analysis_small_sample(X, n_clusters):
             kmeans_model, labels, db_scores, sh_scores = [], [], [], []
             for n_cluster in range(2, n_clusters+1):
