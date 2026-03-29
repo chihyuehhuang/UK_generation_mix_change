@@ -14,7 +14,7 @@ services:
   deploy:
     build: 
       context: .
-      dockerfile: ./deploy/Dockerfile
+      dockerfile: ./Dockerfile
     # volumes:
       # - ./deploy:/app
     #   - ./src:/app/src
