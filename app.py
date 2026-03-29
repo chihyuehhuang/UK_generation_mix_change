@@ -117,7 +117,7 @@ try:
             optimal_n_clusters = db_scores.index(min(db_scores)) + 2
             st.write(f':white_check_mark: Optimal number of clusters: {optimal_n_clusters} (with Davies-Bouldin score: {db_scores[optimal_n_clusters - 2]})')
             optimal_label = labels[optimal_n_clusters - 2]
-            return optimal_label
+            return optimal_label, list(range(2, n_clusters)), db_scores
         
         @st.cache_data(show_spinner=":warning: Due to the smaller sample size (<30), Boostrap is employed to calculate the stability. It may take a while.")
         def clustering_analysis_small_sample(X, n_clusters):
@@ -128,16 +128,23 @@ try:
                 labels.append(kmeans[1])
                 db_scores.append(kmeans[2])
                 sh_scores.append(kmeans[3])
+            
             optimal_n_clusters = db_scores.index(min(db_scores)) + 2
-            st.write(f'Optimal number of clusters: {optimal_n_clusters} (with Davies-Bouldin score: {db_scores[optimal_n_clusters - 2]})')
+            st.write(f':white_check_mark: Optimal number of clusters: {optimal_n_clusters} (with Davies-Bouldin score: {db_scores[optimal_n_clusters - 2]})')
             optimal_label = labels[optimal_n_clusters - 2]
-            return optimal_label
+            return optimal_label, list(range(2, n_clusters)), db_scores
         
         if len(X) < 30:
-            optimal_label = clustering_analysis_small_sample(X, n_clusters)
+            optimal_label, n_clusters_range, db_scores = clustering_analysis_small_sample(X, n_clusters)
         else:
-            optimal_label = clustering_analysis_standard(X, n_clusters)
-        
+            optimal_label, n_clusters_range, db_scores = clustering_analysis_standard(X, n_clusters)
+        with st.expander("View Scores for All Clusters"):
+            # Create a simple Dictionary for a clean table display
+            score_data = {
+                "Number of Clusters": n_clusters_range,
+                "Davies-Bouldin Score": db_scores
+            }
+            st.table(score_data)
         bar_fig = stacked_bar(X_display, cols, optimal_label)
         st.plotly_chart(bar_fig, width='stretch')
 
