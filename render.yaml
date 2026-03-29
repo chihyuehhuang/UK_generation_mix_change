@@ -1,5 +1,6 @@
 # 1. Define the Database in its own section
 databases:
+  # name and databaseName should match the Vars on render.com
   - name: energy_db
     databaseName: db_68e9
     plan: free 
