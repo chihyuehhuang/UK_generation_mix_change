@@ -1,22 +1,12 @@
 import sys
 import os
-# DEBUG: Print environment and paths
-print("--- DEBUG INFO ---")
-print(f"Current Working Directory: {os.getcwd()}")
-print(f"PYTHONPATH Env Var: {os.environ.get('PYTHONPATH', 'NOT SET')}")
-print("System Path (sys.path):")
-for path in sys.path:
-    print(f"  - {path}")
-print("------------------")
 from src.frontend import *
 from src.models import * 
 from src.ingest import get_engine
 import streamlit as st
 import pandas as pd
-import plotly.express as px
-from sqlalchemy import create_engine, text
+from sqlalchemy import text
 import psycopg2
-from pathlib import Path
 
 
 # Set page config
@@ -24,12 +14,18 @@ st.set_page_config(page_title="UK Generation Mix Clustering", layout="wide")
 
 ## --- Data Loading ---
 # 1. Secure Database Connection
-@st.cache_resource # Use cache_resource for database engines
-
+# @st.cache_resource # Use cache_resource for database engines
 @st.cache_data(ttl=3600) # Cache data for 1 hour to prevent constant DB hitting
 def load_data_from_db():
     engine = get_engine()
-    query = text('SELECT * FROM public.generation_data WHERE EXTRACT(YEAR FROM "DATETIME") < 2025;')
+    col_query = text('SELECT column_name FROM information_schema.columns WHERE table_name = \'generation_data\';')
+    with engine.connect() as conn:
+        col_result = conn.execute(col_query)
+        col_names = [row[0] for row in col_result.fetchall()]
+    exclude_cols = ['DATETIME'] # I do not add other columns to exclude because it may be used in the future.
+    kept_cols = [col for col in col_names if col not in exclude_cols]
+    sum_query_string = ", ".join([f'SUM("{col}") AS "{col}"' for col in kept_cols])
+    query = text(f'SELECT DATE_TRUNC(\'month\',"DATETIME") AS "DATETIME", {sum_query_string} FROM public.generation_data WHERE EXTRACT(YEAR FROM "DATETIME") < 2025 GROUP BY "DATETIME";')
     with engine.connect() as conn:
         result = conn.execute(query)
         df = pd.DataFrame(result.fetchall())
