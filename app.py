@@ -138,7 +138,6 @@ try:
         else:
             optimal_label = clustering_analysis_standard(X, n_clusters)
         
-        st.subheader("UK Generation Mix Overtime")
         bar_fig = stacked_bar(X_display, cols, optimal_label)
         st.plotly_chart(bar_fig, width='stretch')
 
