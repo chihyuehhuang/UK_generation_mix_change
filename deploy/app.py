@@ -15,7 +15,7 @@ st.set_page_config(page_title="UK Generation Mix Clustering", layout="wide")
 ## --- Data Loading ---
 # 1. Secure Database Connection
 # @st.cache_resource # Use cache_resource for database engines
-@st.cache_data(ttl=3600) # Cache data for 1 hour to prevent constant DB hitting
+# @st.cache_data(ttl=3600) # Cache data for 1 hour to prevent constant DB hitting
 def load_data_from_db():
     engine = get_engine()
     col_query = text('SELECT column_name FROM information_schema.columns WHERE table_name = \'generation_data\';')
