@@ -25,13 +25,14 @@ def load_data_from_db():
     exclude_cols = ['DATETIME'] # I do not add other columns to exclude because it may be used in the future.
     kept_cols = [col for col in col_names if col not in exclude_cols]
     sum_query_string = ", ".join([f'SUM("{col}") AS "{col}"' for col in kept_cols])
-    query = text(f'SELECT DATE_TRUNC(\'month\',"DATETIME") AS "DATETIME", {sum_query_string} FROM public.generation_data WHERE EXTRACT(YEAR FROM "DATETIME") < 2025 GROUP BY "DATETIME";')
+    query = text(f'SELECT DATE_TRUNC(\'month\',"DATETIME") AS "DATETIME", {sum_query_string} FROM public.generation_data WHERE EXTRACT(YEAR FROM "DATETIME") < 2025 GROUP BY 1 ORDER BY 1;')
     with engine.connect() as conn:
         result = conn.execute(query)
         df = pd.DataFrame(result.fetchall())
         if not df.empty:
             df.columns = result.keys() # Ensure column names are preserved
             df = df.set_index('DATETIME')
+    print(df.info())
     return df
 
 ## --- Title and Description ---
