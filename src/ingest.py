@@ -30,12 +30,18 @@ def clean_data(data):
     return data_sorted
 
 def get_engine():
+    url = os.getenv("DATABASE_URL")
+    if url:
+        print(f"Ingesting to {url}")
+        return create_engine(url)
+
     host = os.getenv("DB_HOST")
     database = os.getenv("DB_NAME")
     username = os.getenv("DB_USER")
     password = os.getenv("DB_PASS")
     port = os.getenv("DB_PORT")
     if not all([host, database, username, password]):
+        print('trying to connect to local database with default credentials...')
         if "postgres" in st.secrets:
         # Access secrets from .streamlit/secrets.toml
             db = st.secrets["postgres"]
