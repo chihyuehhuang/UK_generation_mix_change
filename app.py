@@ -78,7 +78,9 @@ try:
         "Select the maximum number of clusters", 
         options=np.arange(2, 7),
         index=0)
-        st.markdown("Running KMean clustering with " + ", ".join([str(i) for i in np.arange(2, n_clusters+1)]) + " clusters")
+        
+        st.markdown("Running KMean clustering with " + ", ".join([str(i) for i in np.arange(2, n_clusters+1)]) + " clusters "
+        "(You can adjust the max number of clusters in the sidebar).")
 
         #data selection
         X = data[cols]
