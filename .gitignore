@@ -1,5 +1,7 @@
 # Jupyter Notebook checkpoints
 analytics/.ipynb_checkpoints/
+# An empty folder crated while running juyter notebook in the container.
+analytics/src/
 
 # Python bytecode
 __pycache__/
