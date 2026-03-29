@@ -11,7 +11,7 @@ import psycopg2
 
 
 # Set page config
-st.set_page_config(page_title="UK Generation Mix Clustering", layout="wide")
+st.set_page_config(page_title="Structural changes in UK Power Generation Mix", layout="wide")
 
 ## --- Data Loading ---
 # 1. Secure Database Connection
@@ -38,10 +38,10 @@ def load_data_from_db():
     return df
 
 ## --- Title and Description ---
-st.title("UK Electricity Generation Mix: Clustering Analysis")
-st.markdown("""
-This app analyzes how the UK's energy generation profile has changed over time 
-using K-Means clustering (data source: [NESO](https://www.neso.energy/data-portal/historic-generation-mix/historic_gb_generation_mix)).
+st.title("Identifying Structural Changes in UK Power Generation Mix: A Clustering Analysis approach")
+st.markdown("""I apply K-Means clustering to identify structual changes in UK power generation mix. \
+            For detailed analysis, please refer to [GitHub](https://github.com/chihyuehhuang/UK_generation_mix_change/tree/main/analytics). \
+            (data source: [NESO](https://www.neso.energy/data-portal/historic-generation-mix/historic_gb_generation_mix)).
 """)
 st.divider()
 try:
