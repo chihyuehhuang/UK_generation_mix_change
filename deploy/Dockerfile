@@ -2,18 +2,18 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY frontend/requirements.txt .
+COPY deploy/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
-
 
 COPY src/ ./src/
 
 COPY .streamlit/ ./.streamlit/
 
-COPY frontend/app.py .
+COPY deploy/app.py .
 
-COPY frontend/entrypoint.sh .
+# ingest data into db
+COPY deploy/entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
 EXPOSE 8501

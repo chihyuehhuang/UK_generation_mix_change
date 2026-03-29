@@ -15,10 +15,11 @@ services:
     build: 
       context: .
       dockerfile: ./deploy/Dockerfile
-    volumes:
-      - ./deploy:/app
-      - ./src:/app/src
-      - ./.streamlit:/app/.streamlit
+    # volumes:
+      # - ./deploy:/app
+    #   - ./src:/app/src
+    #   - ./.streamlit:/app/.streamlit
+
     container_name: energy_streamlit
     ports:
       - "8501:8501"
@@ -35,9 +36,9 @@ services:
       dockerfile: ./analytics/Dockerfile  # But read these specific instructions
     volumes:
       - ./analytics:/app
-      - ./src:/app/src
-      - ./.streamlit:/app/.streamlit
-      - ./syles:/app/styles
+      - ./src:/app/src # this allows jupyternotebook  to access the src folder inside container
+    #   - ./.streamlit:/app/.streamlit
+    #   - ./syles:/app/styles
 
     container_name: energy_jupyter
     depends_on:
