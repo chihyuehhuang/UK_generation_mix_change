@@ -39,8 +39,8 @@ def load_data_from_db():
 
 ## --- Title and Description ---
 st.title("Identifying Structural Changes in UK Power Generation Mix: A Clustering Analysis approach")
-st.markdown("""I apply K-Means clustering to identify structual changes in UK power generation mix. \n
-            For detailed analysis, please refer to [GitHub](https://github.com/chihyuehhuang/UK_generation_mix_change/tree/main/analytics). \n
+st.markdown("""\n I apply K-Means clustering to identify structual changes in UK power generation mix. <br>
+            For detailed analysis, please refer to [GitHub](https://github.com/chihyuehhuang/UK_generation_mix_change/tree/main/analytics). <br>
             (data source: [NESO](https://www.neso.energy/data-portal/historic-generation-mix/historic_gb_generation_mix)).
 """)
 st.divider()
