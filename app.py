@@ -4,7 +4,7 @@ from src.frontend import *
 from src.models import * 
 from src.ingest import get_engine
 import streamlit as st
-st.write(f"Current Streamlit version: {st.__version__}") #for debug
+# st.write(f"Current Streamlit version: {st.__version__}") #for debug
 import pandas as pd
 from sqlalchemy import text
 import psycopg2
