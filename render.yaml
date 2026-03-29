@@ -1,8 +1,8 @@
 # 1. Define the Database in its own section
-databases:
-  - name: energy_db
-    databaseName: energy_forecast
-    plan: free 
+# databases:
+#   - name: energy_db
+#     databaseName: energy_forecast
+#     plan: free 
 
 # 2. Define the Services (Worker and Web)
 services:
