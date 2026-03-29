@@ -132,7 +132,7 @@ try:
             optimal_n_clusters = db_scores.index(min(db_scores)) + 2
             st.write(f':white_check_mark: Optimal number of clusters: {optimal_n_clusters} (with Davies-Bouldin score: {db_scores[optimal_n_clusters - 2]})')
             optimal_label = labels[optimal_n_clusters - 2]
-            return optimal_label, list(str(i) for i in range(2, n_clusters)), db_scores
+            return optimal_label, list(str(i) for i in range(2, n_clusters+1)), db_scores
         
         if len(X) < 30:
             optimal_label, n_clusters_range, db_scores = clustering_analysis_small_sample(X, n_clusters)
@@ -142,7 +142,7 @@ try:
             # Create a simple Dictionary for a clean table display
             for n, score in zip(n_clusters_range, db_scores):
                 st.write(f"Number of Clusters: {n}, Davies-Bouldin Score: {score:.4f}")
-                
+
         bar_fig = stacked_bar(X_display, cols, optimal_label)
         st.plotly_chart(bar_fig, width='stretch')
 
