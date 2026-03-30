@@ -41,7 +41,7 @@ def load_data_from_db():
 st.title("Identifying Structural Changes in UK Power Generation Mix: A Clustering Analysis approach")
 st.markdown("""
             This app applies K-Means clustering to identify structual changes in UK power generation mix. \n\n
-            The structural breaks are marked by red vertical lines in the charts & the optimal number of clusters is determined by the Davies-Bouldin scores. \n\n
+            The structural breaks are marked by **{red vertical lines}** in the charts & the optimal number of clusters is determined by the Davies-Bouldin scores. \n\n
             For yearly data, due to the smaller sample size, bootstrap is employed to calculate the stability of clustering results. \n\n
             For detailed analysis, please refer to [GitHub](https://github.com/chihyuehhuang/UK_generation_mix_change/tree/main/analytics). \n\n
             (data source: [NESO](https://www.neso.energy/data-portal/historic-generation-mix/historic_gb_generation_mix)).
