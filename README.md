@@ -46,13 +46,14 @@ or
 ```py -m streamlit run app.py```
 
 ### Deploy to server
-#### 1. PostgreSQL<br>
-I use free plan on [render.com](https://render.com/) for PostgreSQL.
+#### 1. PostgreSQL: I use free plan on [render.com](https://render.com/) for PostgreSQL.<br>
 Step 1: Create PostgreSQL service.<br>
 Step 2: Dashboard -> Services -> choose your db -> Connections -> Copy "External Database URL"<br>
 Step 3. Open [data_ingestor.bat](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/data_ingestor.bat), replace "DATABASE_URL" to your "External Database URL" and run the bash file to ingest data to your Render database.<br>
-Step 4. Deploy your app on [Streamlit Community Cloud](https://streamlit.io/cloud). You can deploy on Render.com as well, but the speed is not ideal.
-Remember change Setting (you will see it when creating the app or manage app).  The python version should be 3.12. In Secrets, set up your DB information. The format is the same as secrets.toml, but the information has to be from Render DB.<br>
+#### 2. Deploy: I tried [Streamlit Community Cloud](https://streamlit.io/cloud) & Render.com Webservice (free plan). The speed of Streamlit Community Cloud is much faster. <br>
+Step 1: Commit your local repository to GitHub & connect it with Streamlit Community Cloud to deploy. <br>
+Step 2: When deploy, make sure the python version is 3.12 to avoid error (You can change it in manage app (bottom right) -> Setting). <br>
+In Setting -> Secrets, set up your DB information. The format is the same as secrets.toml, but the information has to be from Render DB.<br>
 You can extract the information from External Database URL.
 If your URL is: postgresql://youruser:yourpassword@yourhost/yourdatabase
 ```
