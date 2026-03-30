@@ -38,7 +38,7 @@ def load_data_from_db():
     return df
 
 ## --- Title and Description ---
-st.title("Identifying Structural Changes in UK Power Generation Mix: A Clustering Analysis approach")
+st.title("Identifying Structural Changes in UK Power Generation Mix: A Clustering Analysis Approach")
 st.write("""
             This app applies K-Means clustering to identify structual changes in UK power generation mix. \n\n
             The structural breaks are marked by **:red[red vertical lines]** in the charts & the optimal number of clusters is determined by the Davies-Bouldin scores. \n\n
