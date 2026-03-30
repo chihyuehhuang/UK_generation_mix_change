@@ -117,7 +117,7 @@ try:
             optimal_n_clusters = db_scores.index(min(db_scores)) + 2
             st.write(f':white_check_mark: Optimal number of clusters: {optimal_n_clusters} (with Davies-Bouldin score: {db_scores[optimal_n_clusters - 2]})')
             optimal_label = labels[optimal_n_clusters - 2]
-            return optimal_label, list(range(2, n_clusters)), db_scores
+            return optimal_label, list(str(i) for i in range(2, n_clusters+1)), db_scores
         
         @st.cache_data(show_spinner=":warning: Due to the smaller sample size (<30), Boostrap is employed to calculate the stability. It may take a while.")
         def clustering_analysis_small_sample(X, n_clusters):
