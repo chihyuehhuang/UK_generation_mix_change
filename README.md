@@ -4,7 +4,7 @@
 This project uses k-means clustering analysis to identify the structural changes in UK Electricity Generation Mix.
 The data is downloaded from the [National Energy System Operator (NESO)](https://www.neso.energy/data-portal)
 
-## Analysis
+## Analytics
 This repository contains three scripts:
 
 1. [Data import](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/01_data_import%20(first).ipynb): download the data via NESO API and exports it to the PostgreSQL database.
@@ -12,7 +12,7 @@ This repository contains three scripts:
 However, it is not necessary to update the data frequently, as the main purpose is to identify long-term structural change.
 3. [Clustering analysis](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb): perform the clustering analysis.
 
-## Implementation
+## Implementation (Docker & Streamlit app)
 ### Running locally
 :exclamation: Please run [Data import](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/01_data_import%20(first).ipynb) to create DB before running [Clustering analysis](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/notebooks/03_clustering_analysis.ipynb).
 
@@ -22,15 +22,16 @@ DB_HOST should match the service name in [docker-compose.yml](https://github.com
 Step 2: Build & start containers for both postgreSQL, Jupyter Notebook & Streamlit <br>
 ```docker-compose up -d```
 
-Step 3: Get the URL & check if data is ingested. <br>
-Streamlit:
-```docker logs energy_streamlit```
+Step 3: Get the URL & check if data is ingested.
+
+Streamlit:<br>
+```docker logs energy_streamlit```<br>
 :exclamation: the data ingestion is tied with [energy_streamlit Dockerfile](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/Dockerfile). Please wait until the data is succesfully ingested before access notebook & streamlit app.
 
-Notebook:
+Notebook:<br>
 ```docker logs energy_jupyter```
 
-PostgreSQL:
+PostgreSQL:<br>
 (Not necessary to check)
 ```docker logs energy_db```
 
@@ -41,7 +42,7 @@ Step 1: Set up PostgreSQL on your local machine and make sure the host, username
 Step 2: Store environment information created in step 1 in .streamlit/secrets.toml.<br>
 Example file: [secrets.toml.example](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/.streamlit/secrets.toml.example)<br>
 Step 3: Run the Jupyter Notebook in your IDEs. For streamlit app,<br>
-```python -m streamlit run app.py```
+```python -m streamlit run app.py``` <br>
 or
 ```py -m streamlit run app.py```
 
