@@ -46,7 +46,8 @@ Step 2: Store environment information created in step 1 in .streamlit/secrets.to
 
 Example file: [secrets.toml.example](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/.streamlit/secrets.toml.example)
 
-Step 3: Run the Jupyter Notebook in your IDEs. For streamlit app,<br>
+Step 3: Run the Jupyter Notebook in your IDEs. For streamlit app,
+
 ```python -m streamlit run app.py``` or <br>
 ```py -m streamlit run app.py```
 
