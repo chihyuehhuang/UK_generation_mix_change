@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import plotly.express as px
+import plotly.colors as pc
 import streamlit as st
 
 def get_cass_path():
@@ -67,7 +68,6 @@ def stacked_bar(data, cols, labels, timeformat='%Y-%m'):
     fig.update_layout(
         xaxis_title="Year",
         yaxis_title="Energy Output (GWh)",
-        legend_title="Fuel Sources",
         hovermode="x unified", # Shows all fuel values for a single date on hover
         xaxis=dict(rangeslider=dict(visible=True), type="date"),
         font=dict(family="Playfair Display, serif") # Matches your config.toml font
@@ -75,16 +75,33 @@ def stacked_bar(data, cols, labels, timeformat='%Y-%m'):
 
     return fig
 
-def interactive_line(data, col, labels, timeformat= '%Y-%m'):
+def interactive_scatter(data, col, labels, timeformat= '%Y-%m'):
     df = data.reset_index()
     line_color = ENERGY_COLORS.get(col.upper(), '#1f77b4')
 
-    fig = px.line(df, x='Date', y=col, title=f"{col.title()} generation over time", color_discrete_sequence=[line_color])
+    df['Cluster'] = labels
+    cluster_map = dict(zip(df['Cluster'].unique(), [str(i) for i in range(1, len(df['Cluster'].unique())+1)]))
+    df['Cluster'] = df['Cluster'].map(cluster_map)
+    unique_clusters = sorted(df['Cluster'].unique())
+    color_map = {
+        cluster: px.colors.label_rgb(
+            px.colors.find_intermediate_color(
+                px.colors.hex_to_rgb(line_color), px.colors.hex_to_rgb("#FFFFFF"), i / len(unique_clusters))
+        ) for i, cluster in enumerate(unique_clusters)
+    }
+    print(color_map)
 
-    no_clusters = pd.Series(labels).unique()
+    fig = px.scatter(
+        df, 
+        x='Date', 
+        y=col,
+        color='Cluster',
+        title=f"{col.title()} generation over time", 
+        color_discrete_map=color_map)
 
-    for j in range(1, len(no_clusters)):
-        change_point = min(data.index[labels == no_clusters[j]])
+
+    for j in range(1, len(unique_clusters)):
+        change_point = min(data.index[df['Cluster'] == unique_clusters[j]])
         change_point_str = change_point.strftime(timeformat)
         fig.add_vline(
             x=change_point.timestamp() * 1000, 

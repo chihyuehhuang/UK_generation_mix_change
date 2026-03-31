@@ -171,7 +171,7 @@ try:
 
         if selected_cols :
             for col in selected_cols:
-                line_fig = interactive_line(X_display, col, optimal_label)
+                line_fig = interactive_scatter(X_display, col, optimal_label)
                 st.plotly_chart(line_fig, width='stretch', key = f"chart_{col}")
 
 
