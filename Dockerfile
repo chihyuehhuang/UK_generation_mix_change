@@ -23,4 +23,4 @@ ENTRYPOINT ["./entrypoint.sh"]
 # CMD ["python", "app.py"]
 
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
+CMD ["gunicorn", "--workers", "1", "--threads", "2", "--bind", "0.0.0.0:8080", "app:app"]
