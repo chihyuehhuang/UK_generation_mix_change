@@ -19,8 +19,8 @@ RUN chmod +x entrypoint.sh
 
 EXPOSE 8080
 
-ENTRYPOINT ["./entrypoint.sh"]
-# CMD ["python", "app.py"]
+# ENTRYPOINT ["./entrypoint.sh"] # Commenting out entrypoint to run Flask app directly for development. Uncomment for production with DB setup.
 
+CMD ["python", "app.py"]
 
-CMD ["gunicorn", "--workers", "1", "--threads", "2", "--bind", "0.0.0.0:8080", "app:app"]
+# CMD ["gunicorn", "--workers", "1", "--threads", "2", "--bind", "0.0.0.0:8080", "app:app"]
