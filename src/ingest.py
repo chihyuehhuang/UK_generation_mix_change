@@ -2,9 +2,10 @@ import os
 import urllib3
 import json
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import psycopg2
 import streamlit as st
+from functools import lru_cache
 
 def fetch_neso_data(query_url="https://api.neso.energy/api/3/action/datastore_search_sql?sql=SELECT * from \"f93d1835-75bc-43e5-84ad-12472b180a98\""):
     print("📥 Fetching data from NESO API...")
@@ -78,6 +79,29 @@ def main():
     
     # 4. Export
     export_to_sql(sorted_df, engine)
+
+@lru_cache(maxsize=1)
+def load_data_from_db():
+    engine = get_engine()
+    col_query = text('SELECT column_name FROM information_schema.columns WHERE table_name = \'generation_data\';')
+
+    with engine.connect() as conn:
+        col_result = conn.execute(col_query)
+        col_names = [row[0] for row in col_result.fetchall()]
+    exclude_cols = ['DATETIME'] # I do not add other columns to exclude because it may be used in the future.
+    kept_cols = [col for col in col_names if col not in exclude_cols]
+    sum_query_string = ", ".join([f'SUM("{col}") AS "{col}"' for col in kept_cols])
+    query = text(f'SELECT DATE_TRUNC(\'month\',"DATETIME") AS "DATETIME", {sum_query_string} FROM public.generation_data WHERE EXTRACT(YEAR FROM "DATETIME") < 2025 GROUP BY 1 ORDER BY 1;')
+
+    with engine.connect() as conn:
+        result = conn.execute(query)
+        df = pd.DataFrame(result.fetchall())
+        if not df.empty:
+            df.columns = result.keys() # Ensure column names are preserved
+            df = df.set_index('DATETIME')
+    # print(df.info())
+    return df
+
 
 if __name__ == "__main__":
     main()

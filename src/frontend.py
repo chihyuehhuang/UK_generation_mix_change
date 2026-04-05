@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 import plotly.express as px
-import plotly.colors as pc
 import streamlit as st
 
 def get_cass_path():
@@ -69,11 +68,10 @@ def stacked_bar(data, cols, labels, timeformat='%Y-%m'):
         xaxis_title="Year",
         yaxis_title="Energy Output (GWh)",
         hovermode="x unified", # Shows all fuel values for a single date on hover
-        xaxis=dict(rangeslider=dict(visible=True), type="date"),
-        font=dict(family="Playfair Display, serif") # Matches your config.toml font
+        xaxis=dict(rangeslider=dict(visible=True), type="date")
     )
 
-    return fig
+    return fig.to_json()
 
 def interactive_scatter(data, col, labels, timeformat= '%Y-%m'):
     df = data.reset_index()
@@ -89,7 +87,6 @@ def interactive_scatter(data, col, labels, timeformat= '%Y-%m'):
                 px.colors.hex_to_rgb(line_color), px.colors.hex_to_rgb("#FFFFFF"), i / len(unique_clusters))
         ) for i, cluster in enumerate(unique_clusters)
     }
-    print(color_map)
 
     fig = px.scatter(
         df, 
@@ -97,7 +94,8 @@ def interactive_scatter(data, col, labels, timeformat= '%Y-%m'):
         y=col,
         color='Cluster',
         title=f"{col.title()} generation over time", 
-        color_discrete_map=color_map)
+        color_discrete_map=color_map,
+        template="plotly_dark")
 
 
     for j in range(1, len(unique_clusters)):
@@ -111,4 +109,4 @@ def interactive_scatter(data, col, labels, timeformat= '%Y-%m'):
             annotation_xanchor="left", # Anchors the text to the line without math
         )
     fig.update_xaxes(rangeslider_visible=True)
-    return fig
+    return fig.to_json()

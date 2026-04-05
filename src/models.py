@@ -58,3 +58,28 @@ def cluster_analysis(X:pd.DataFrame, n_clusters, random_state=1, verbose=True, s
         return kmeans, labels, db_score, stability_score
     else:
         return kmeans, labels, db_score
+
+def clustering_analysis_standard(X, n_clusters):
+    kmeans_model, labels, db_scores = [], [], []
+    for n_cluster in range(2, n_clusters+1):
+        kmeans = cluster_analysis(X, n_cluster)
+        kmeans_model.append(kmeans[0])
+        labels.append(kmeans[1])
+        db_scores.append(kmeans[2])
+            
+    optimal_n_clusters = db_scores.index(min(db_scores)) + 2
+    optimal_label = labels[optimal_n_clusters - 2]
+    return optimal_n_clusters, optimal_label, list(str(i) for i in range(2, n_clusters+1)), db_scores
+
+def clustering_analysis_small_sample(X, n_clusters):
+    kmeans_model, labels, db_scores, sh_scores = [], [], [], []
+    for n_cluster in range(2, n_clusters+1):
+        kmeans = cluster_analysis(X, n_cluster, n_init=100, max_iter=1000, stab=True, silhouette=True)
+        kmeans_model.append(kmeans[0])
+        labels.append(kmeans[1])
+        db_scores.append(kmeans[2])
+        sh_scores.append(kmeans[3])
+    
+    optimal_n_clusters = db_scores.index(min(db_scores)) + 2
+    optimal_label = labels[optimal_n_clusters - 2]
+    return optimal_n_clusters, optimal_label, list(str(i) for i in range(2, n_clusters+1)), db_scores

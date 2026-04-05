@@ -8,16 +8,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/ ./src/
 
-COPY app.py .
+COPY .streamlit/ ./.streamlit/
 
-COPY templates/ ./templates/
-COPY static/ ./static/
+COPY app.py .
 
 # ingest data into db
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
-EXPOSE 8080
+EXPOSE 8501
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["python", "app.py"]
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]

@@ -1,0 +1,36 @@
+# 1. Define the Database in its own section
+databases:
+  # name and databaseName should match the Vars on render.com
+  - name: energy_db
+    databaseName: db_68e9
+    plan: free 
+
+# 2. Define the Services (Worker and Web)
+services:
+  # Ingest Service
+  - type: worker
+    name: data_ingestor
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.port 10000 --server.address 0.0.0.0
+    envVars:
+      - key: PYTHONPATH
+        value: "."  # <--- THIS IS THE MAGIC LINE
+      - key: DB_HOST
+        fromDatabase:
+          name: energy_db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: energy_db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: energy_db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: energy_db
+          property: password
+      - key: DB_PORT
+        value: "5432" # Internal Docker/Render port

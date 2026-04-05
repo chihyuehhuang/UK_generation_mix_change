@@ -7,4 +7,4 @@ seaborn
 psycopg2-binary
 plotly
 streamlit>=1.21.0
-flask
+altair<5
