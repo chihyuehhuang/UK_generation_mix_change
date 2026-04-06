@@ -124,10 +124,17 @@ const frequencySelect = document.getElementById('frequency');
         loadingMessage.style="color: #007bff; font-weight: bold; margin-bottom: 15px;"
         loadingMessage.style.display = 'block';
 
+        // Clear out old data and charts before fetching new results
         const doenMessage = document.getElementById('done-message');
         doenMessage.style.display = 'none';
         const tableBody = document.getElementById('detailed-scores');
         tableBody.innerHTML = ''; // Clear out old data
+        const mainChartContainer = document.getElementById('main-chart');
+        mainChartContainer.innerHTML = '';
+        const scatterPlotContainer = document.getElementById('scatter-plot');
+        scatterPlotContainer.innerHTML = '';
+        globalChartsData = {}; // Clear old charts data
+
         try {
             const response = await fetch('/api/run_clustering', {
                 method: 'POST',
