@@ -8,15 +8,19 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/ ./src/
 
-COPY .streamlit/ ./.streamlit/
-
 COPY app.py .
+
+COPY templates/ ./templates/
+COPY static/ ./static/
 
 # ingest data into db
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
-EXPOSE 8501
+EXPOSE 8080
 
-ENTRYPOINT ["./entrypoint.sh"]
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# ENTRYPOINT ["./entrypoint.sh"] # Commenting out entrypoint to run Flask app directly for development. Uncomment for production with DB setup.
+
+CMD ["python", "app.py"]
+
+# CMD ["gunicorn", "--workers", "1", "--threads", "2", "--bind", "0.0.0.0:8080", "app:app"]
