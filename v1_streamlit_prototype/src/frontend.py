@@ -71,7 +71,7 @@ def stacked_bar(data, cols, labels, timeformat='%Y-%m'):
         xaxis=dict(rangeslider=dict(visible=True), type="date")
     )
 
-    return fig.to_json()
+    return fig
 
 def interactive_scatter(data, col, labels, timeformat= '%Y-%m'):
     df = data.reset_index()
@@ -109,4 +109,4 @@ def interactive_scatter(data, col, labels, timeformat= '%Y-%m'):
             annotation_xanchor="left", # Anchors the text to the line without math
         )
     fig.update_xaxes(rangeslider_visible=True)
-    return fig.to_json()
+    return fig
