@@ -1,0 +1,71 @@
+# Porject: Identifying Structural Changes in UK Power Generation Mix: A Clustering Analysis Approach
+
+## Legacy Streamlit app
+The Streamlit app was developed as a [prototype](https://github.com/chihyuehhuang/UK_generation_mix_change/tree/main/v1_streamlit_prototype), which will NOT be updated in the future. It is deployed on [Streamlit Cloud Community](https://ukgenerationmixchange.streamlit.app/)
+
+## Implementation (Docker & Flask app)
+
+### Option 1: Run with Docker (recommended)
+Step 1: Create .env file. Check [.env.example](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/.env.example).
+DB_HOST should match the service name in [docker-compose.yml](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/docker-compose.yml)
+
+Step 2: Build & start containers for both postgreSQL, Jupyter Notebook & Streamlit <br>
+```docker-compose up -d```
+
+Step 3: Get the URL & check if data is ingested.
+
+Streamlit:<br>
+```docker logs energy_streamlit```
+
+:exclamation: the data ingestion is tied with [energy_st Dockerfile](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/Dockerfile). Please wait until the data is succesfully ingested before access notebook & streamlit app.
+
+Notebook:<br>
+```docker logs energy_jupyter```
+
+PostgreSQL:<br>
+(Not necessary to check)
+```docker logs energy_db```
+
+Step 4: Copy the URL to the browser and run the Jupyter Notebook & Flask app <br>
+
+#### Option 2: Outside of Docker
+Step 1: Set up PostgreSQL on your local machine and make sure the host, username, port, and password match the settings.
+
+Step 2: Store environment information created in step 1 in .streamlit/secrets.toml.
+
+Example file: [secrets.toml.example](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/.streamlit/secrets.toml.example)
+
+Step 3: Run the Jupyter Notebook in your IDEs. For streamlit app,
+
+```python -m streamli run app.py``` or <br>
+```py -m streamlit run app.py```
+
+### Deploy to server
+#### 1. PostgreSQL: I use free plan on [render.com](https://render.com/) for PostgreSQL.
+
+Step 1: Create PostgreSQL service.
+
+Step 2: Dashboard -> Services -> choose your db -> Connections -> Copy "External Database URL"
+
+Step 3. Open [data_ingestor.bat](https://github.com/chihyuehhuang/UK_generation_mix_change/blob/main/data_ingestor.bat), replace "DATABASE_URL" to your "External Database URL" and run the bash file to ingest data to your Render database.
+
+#### 2. Deploy: I tried [Streamlit Community Cloud](https://streamlit.io/cloud) & Render.com Webservice (free plan). The speed of Streamlit Community Cloud is much faster.
+
+Step 1: Commit your local repository to GitHub & connect it with Streamlit Community Cloud to deploy.
+
+Step 2: When deploy, make sure the python version is 3.12 to avoid error (You can change it in manage app (bottom right) -> Setting).
+
+In Setting -> Secrets, set up your DB information. The format is the same as secrets.toml, but the information has to be from Render DB.
+
+You can extract the information from External Database URL.
+If your URL is: postgresql://youruser:yourpassword@yourhost/yourdatabase
+```
+[postgres]
+host="yourhost"
+username="youruser"
+password="yourpassword"
+database="yourdatabase
+port="54321
+```
+
+If you have any question, please contact me by 📫 [hello@chihyuehhuang.com](mailto:hello@chihyuehhuang.com).
