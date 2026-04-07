@@ -16,7 +16,7 @@ env/
 *.log
 
 #streamlit credential (for local)
-# v1_streamlit_prototype/.streamlit/secrets.toml
+v1_streamlit_prototype/.streamlit/secrets.toml
 
 #db credential (for docker)
 .env
