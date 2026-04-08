@@ -27,6 +27,9 @@ const frequencySelect = document.getElementById('frequency');
             option.text = freq;
             frequencySelect.appendChild(option);
         });
+        // Set default value to the monthly de-seasoned option
+        frequencySelect.value = freqList[1];
+       
         // Attach listener safely inside the check
         frequencySelect.addEventListener('change', runClustering);
     } else {
